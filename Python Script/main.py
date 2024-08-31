@@ -126,7 +126,6 @@ cap = cv2.VideoCapture(0)
 # Define the hand gesture mappings based on the landmarks
 def detect_gesture(landmarks):
     # Extract landmark positions
-    sentance=""
     thumb_tip = landmarks[4]
     index_tip = landmarks[8]
     middle_tip = landmarks[12]
@@ -139,70 +138,246 @@ def detect_gesture(landmarks):
     ring_ip = landmarks[15]
     pinky_ip = landmarks[19]
 
-    thumb_mcp = landmarks[2]  # MCP joint of the thumb
-    index_mcp = landmarks[5]  # MCP joint of the index finger
+    thumb_mcp = landmarks[2]
+    index_mcp = landmarks[5]
+    middle_mcp = landmarks[9]
+    ring_mcp = landmarks[13]
+    pinky_mcp = landmarks[17]
 
-    # Example logic for "A" (fist-like gesture)
+    sentance = ""
+
+    # Logic for "A" (fist-like gesture)
     if (thumb_tip.x < thumb_ip.x and
         index_tip.y > index_ip.y and
         middle_tip.y > middle_ip.y and
         ring_tip.y > ring_ip.y and
         pinky_tip.y > pinky_ip.y):
-        sentance+="A"
+        sentance += "A"
         return "A"
 
-    # Example logic for "B" (all fingers extended straight)
+    # Logic for "B" (all fingers extended straight)
     if (index_tip.y < index_ip.y and
         middle_tip.y < middle_ip.y and
         ring_tip.y < ring_ip.y and
         pinky_tip.y < pinky_ip.y):
-        sentance+="B"
+        sentance += "B"
         return "B"
 
-    # Example logic for "C" (forming a "C" with thumb and index)
+    # Logic for "C" (forming a "C" with thumb and index)
     if (thumb_tip.x < index_tip.x and
         0 < (thumb_tip.y - index_tip.y) < 0.2 and
-        middle_tip.y < landmarks[9].y and
-        ring_tip.y < landmarks[13].y and
-        pinky_tip.y < landmarks[17].y):
-        sentance+="C"
+        middle_tip.y < middle_mcp.y and
+        ring_tip.y < ring_mcp.y and
+        pinky_tip.y < pinky_mcp.y):
+        sentance += "C"
         return "C"
 
-    # Example logic for "D" (index finger pointing up, others curled in)
+    # Logic for "D" (index finger pointing up, others curled in)
     if (index_tip.y < index_mcp.y and
         middle_tip.y > middle_ip.y and
         ring_tip.y > ring_ip.y and
         pinky_tip.y > pinky_ip.y and
         thumb_tip.x > thumb_mcp.x):
-        sentance+="D"
+        sentance += "D"
         return "D"
 
-    # Example logic for "E" (fingers curled in, thumb across palm)
+    # Logic for "E" (fingers curled in, thumb across palm)
     if (thumb_tip.x > thumb_mcp.x and
         index_tip.y > index_ip.y and
         middle_tip.y > middle_ip.y and
         ring_tip.y > ring_ip.y and
         pinky_tip.y > pinky_ip.y):
-        sentance+="E"
+        sentance += "E"
         return "E"
 
-    # Example logic for "F" (thumb and index forming a circle, others straight)
+    # Logic for "F" (thumb and index forming a circle, others straight)
     if (thumb_tip.x > index_tip.x and
         index_tip.y < index_ip.y and
         middle_tip.y < middle_ip.y and
         ring_tip.y < ring_ip.y and
         pinky_tip.y < pinky_ip.y):
-        sentance+="F"
+        sentance += "F"
         return "F"
 
-    # Example logic for "G" (thumb and index parallel, others closed)
+    # Logic for "G" (thumb and index parallel, others closed)
     if (thumb_tip.y > thumb_mcp.y and
         index_tip.y < index_mcp.y and
         middle_tip.y > middle_ip.y and
         ring_tip.y > ring_ip.y and
         pinky_tip.y > pinky_ip.y):
-        sentance+="G"
+        sentance += "G"
         return "G"
+
+    # Logic for "H" (index and middle finger extended, others curled)
+    if (index_tip.y < index_ip.y and
+        middle_tip.y < middle_ip.y and
+        ring_tip.y > ring_ip.y and
+        pinky_tip.y > pinky_ip.y and
+        thumb_tip.x < thumb_ip.x):
+        sentance += "H"
+        return "H"
+
+    # Logic for "I" (pinky extended, others curled)
+    if (pinky_tip.y < pinky_ip.y and
+        index_tip.y > index_ip.y and
+        middle_tip.y > middle_ip.y and
+        ring_tip.y > ring_ip.y and
+        thumb_tip.x < thumb_ip.x):
+        sentance += "I"
+        return "I"
+
+    # Logic for "J" (pinky draws a "J" shape, others curled)
+    if (pinky_tip.y < pinky_ip.y and
+        index_tip.y > index_ip.y and
+        middle_tip.y > middle_ip.y and
+        ring_tip.y > ring_ip.y and
+        thumb_tip.x < thumb_ip.x):
+        sentance += "J"
+        return "J"
+
+    # Logic for "K" (thumb, index, and middle finger extended, others curled)
+    if (thumb_tip.x > thumb_mcp.x and
+        index_tip.y < index_ip.y and
+        middle_tip.y < middle_ip.y and
+        ring_tip.y > ring_ip.y and
+        pinky_tip.y > pinky_ip.y):
+        sentance += "K"
+        return "K"
+
+    # Logic for "L" (thumb and index extended, others curled)
+    if (thumb_tip.x > thumb_ip.x and
+        index_tip.y < index_ip.y and
+        middle_tip.y > middle_ip.y and
+        ring_tip.y > ring_ip.y and
+        pinky_tip.y > pinky_ip.y):
+        sentance += "L"
+        return "L"
+
+    # Logic for "M" (thumb tucked under index, middle, and ring fingers)
+    if (thumb_tip.x > thumb_ip.x and
+        index_tip.x > thumb_tip.x and
+        middle_tip.x > thumb_tip.x and
+        ring_tip.x > thumb_tip.x and
+        pinky_tip.y > pinky_ip.y):
+        sentance += "M"
+        return "M"
+
+    # Logic for "N" (thumb tucked under index and middle fingers)
+    if (thumb_tip.x > thumb_ip.x and
+        index_tip.x > thumb_tip.x and
+        middle_tip.x > thumb_tip.x and
+        ring_tip.x < thumb_tip.x and
+        pinky_tip.y > pinky_ip.y):
+        sentance += "N"
+        return "N"
+
+    # Logic for "O" (fingers form an "O" shape)
+    if (thumb_tip.x < index_tip.x and
+        index_tip.y < middle_tip.y and
+        middle_tip.y < ring_tip.y and
+        ring_tip.y < pinky_tip.y):
+        sentance += "O"
+        return "O"
+
+    # Logic for "P" (similar to "K" but tilted down)
+    if (thumb_tip.x > thumb_ip.x and
+        index_tip.y < index_ip.y and
+        middle_tip.y < middle_ip.y and
+        ring_tip.y > ring_ip.y and
+        pinky_tip.y > pinky_ip.y and
+        thumb_tip.y > thumb_mcp.y):
+        sentance += "P"
+        return "P"
+
+    # Logic for "Q" (thumb and index form a "Q" shape, others curled)
+    if (thumb_tip.x < index_tip.x and
+        index_tip.y < index_ip.y and
+        middle_tip.y > middle_ip.y and
+        ring_tip.y > ring_ip.y and
+        pinky_tip.y > pinky_ip.y):
+        sentance += "Q"
+        return "Q"
+
+    # Logic for "R" (index and middle fingers crossed, others curled)
+    if (index_tip.x < middle_tip.x and
+        middle_tip.y < middle_ip.y and
+        ring_tip.y > ring_ip.y and
+        pinky_tip.y > pinky_ip.y):
+        sentance += "R"
+        return "R"
+
+    # Logic for "S" (fist with thumb across the fingers)
+    if (thumb_tip.x > thumb_mcp.x and
+        index_tip.y > index_ip.y and
+        middle_tip.y > middle_ip.y and
+        ring_tip.y > ring_ip.y and
+        pinky_tip.y > pinky_ip.y):
+        sentance += "S"
+        return "S"
+
+    # Logic for "T" (thumb tucked under index finger)
+    if (thumb_tip.x < index_mcp.x and
+        index_tip.y > thumb_tip.y and
+        middle_tip.y > middle_ip.y and
+        ring_tip.y > ring_ip.y and
+        pinky_tip.y > pinky_ip.y):
+        sentance += "T"
+        return "T"
+
+    # Logic for "U" (index and middle fingers extended together)
+    if (index_tip.y < index_ip.y and
+        middle_tip.y < middle_ip.y and
+        ring_tip.y > ring_ip.y and
+        pinky_tip.y > pinky_ip.y):
+        sentance += "U"
+        return "U"
+
+    # Logic for "V" (index and middle fingers extended apart)
+    if (index_tip.y < index_ip.y and
+        middle_tip.y < middle_ip.y and
+        ring_tip.y > ring_ip.y and
+        pinky_tip.y > pinky_ip.y and
+        (index_tip.x - middle_tip.x) > 0.1):
+        sentance += "V"
+        return "V"
+
+    # Logic for "W" (index, middle, and ring fingers extended)
+    if (index_tip.y < index_ip.y and
+        middle_tip.y < middle_ip.y and
+        ring_tip.y < ring_ip.y and
+        pinky_tip.y > pinky_ip.y):
+        sentance += "W"
+        return "W"
+
+    # Logic for "X" (index finger curled, others curled)
+    if (index_tip.y > index_ip.y and
+        middle_tip.y > middle_ip.y and
+        ring_tip.y > ring_ip.y and
+        pinky_tip.y > pinky_ip.y and
+        thumb_tip.x < thumb_ip.x):
+        sentance += "X"
+        return "X"
+
+    # Logic for "Y" (thumb and pinky extended, others curled)
+    if (thumb_tip.x > thumb_mcp.x and
+        pinky_tip.y < pinky_ip.y and
+        index_tip.y > index_ip.y and
+        middle_tip.y > middle_ip.y and
+        ring_tip.y > ring_ip.y):
+        sentance += "Y"
+        return "Y"
+
+    # Logic for "Z" (index finger traces a "Z" shape)
+    if (index_tip.y < index_ip.y and
+        middle_tip.y > middle_ip.y and
+        ring_tip.y > ring_ip.y and
+        pinky_tip.y > pinky_ip.y and
+        thumb_tip.x < thumb_ip.x):
+        sentance += "Z"
+        return "Z"
+
+    return None  # No gesture detected
+
     print(sentance)
 
    
@@ -236,7 +411,7 @@ with mp_hands.Hands(min_detection_confidence=0.7, min_tracking_confidence=0.7) a
                                 cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 255, 0), 3)
                             
         # Show the frame
-        cv2.imshow('Hand Gesture Recognition', frame)
+        cv2.imshow('Hand Gesture Recognition',frame)
         
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
