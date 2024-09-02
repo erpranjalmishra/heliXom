@@ -4,7 +4,7 @@
 
 ### **Do not change anything in this repository unless you have the knowledge or permission. Please focus on your assigned tasks.**
 
-# Video Call Intercom System with Vibration Sensor
+# Video Call Intercom System with Sensors and SOS ALerts
 
 This project aims to create an accessible video call intercom system for Deaf individuals, utilizing an analog/IP-based communication system with integrated vibration sensors. The system facilitates communication in environments like offices, homes, and businesses without relying on voice-based communication methods.
 
