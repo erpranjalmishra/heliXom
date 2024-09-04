@@ -62,12 +62,12 @@ The Smart India Hackathon project aims to create an interactive hand gesture rec
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/erpranjalmishra/Smart-India-Hackathon.git
+    git clone https://github.com/erpranjalmishra/helixom.git
     ```
 
 2. Navigate to the project directory:
     ```bash
-    cd Smart-India-Hackathon
+    cd helixom
     ```
 
 3. Install the required Python libraries:
