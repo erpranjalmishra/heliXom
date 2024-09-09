@@ -8,7 +8,7 @@ Project is combintion of software and hardware and Video Call Website will be li
 
 This project aims to create an accessible video call intercom system for Deaf individuals, utilizing an analog/IP-based communication system with integrated vibration sensors. The system facilitates communication in environments like offices, homes, and businesses without relying on voice-based communication methods.
 
-## Features
+## Features.
 
 - **Video Communication**: Facilitates communication using video, making it ideal for sign language users.
 - **Vibration Alerts**: Integrated vibration sensors notify the user of incoming calls or messages.
