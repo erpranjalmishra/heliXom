@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Swagatam</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <meta name="theme-color" content="#0e88be" />
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+    }
+
+    .bgimg {
+      background-image: url('/2.jpg');
+      height: 100%;
+      background-position: center;
+      background-size: cover;
+      position: relative;
+      color: white;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 25px;
+    }
+
+    .topleft {
+      position: absolute;
+      top: 0;
+      left: 16px;
+    }
+
+    .bottomleft {
+      position: absolute;
+      bottom: 0;
+      left: 16px;
+    }
+
+    .middle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    hr {
+      margin: auto;
+      width: 40%;
+    }
+
+    .blink {
+      animation: blinker 1.5s linear infinite;
+      color: red;
+      font-family: sans-serif;
+    }
+
+    @keyframes blinker {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .arrow {
+      border: solid black;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+    }
+
+    .up {
+      transform: rotate(-135deg);
+      -webkit-transform: rotate(-135deg);
+    }
+
+    /* Rounded black button CSS */
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      outline: none;
+      color: white;
+      background-color: black;
+      border: none;
+      border-radius: 25px;
+      box-shadow: 0 4px #999;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #555;
+    }
+
+    .button:active {
+      background-color: #555;
+      box-shadow: 0 2px #666;
+      transform: translateY(2px);
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="bgimg">
+  <div class="topleft">
+    <img src="/1.png" alt="Logo" style="width:100px;height:auto;">
+  </div>
+
+  <div class="middle">
+    <marquee class="blink" behavior="scroll" direction="left" scrollamount="15" style="color:rgb(0, 0, 0);align-items: center;">🙏</marquee>
+    <h1 style="color:rgb(0, 0, 0);">नमस्ते<br>Welcome</h1>
+    
+    <!-- Rounded button for the GitHub link -->
+    <a href="https://meet.risg.in/Swagatam.html" class="button">
+      सांकेतिक भाषा में बातचीत के लिए आगे बढ़ें👉<br>Go Ahead For Sign Meet↗️</a>
+  </div>
+
+  <div class="bottomleft">
+    <h3 style="color:rgb(0, 0, 0);">Team V</h3>
+  </div>
+</div>
+
+</body>
+</html>

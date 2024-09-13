@@ -1,0 +1,46 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Call Interface</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">VideoCall</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="main-content">
+            <h1>Connect with Your Team</h1>
+            <p>Join or start a video call in seconds.</p>
+            <div class="action-buttons">
+                <input type="text" id="meeting-id" placeholder="Enter Meeting ID">
+                <button id="join-call">Join Call</button>
+                <button id="create-meeting">Create a Meeting</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 VideoCall. All rights reserved.</p>
+        <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Contact Us</a></li>
+        </ul>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

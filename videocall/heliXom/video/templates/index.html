@@ -1,0 +1,371 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>heliXom</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <meta name="theme-color" content="#0e88be" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: url('{% static 'images/1.jpg' %}') no-repeat center center fixed; /* Add your image path here */
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            position: relative;
+            width: 100%;
+        }
+        video {
+            width: 500px;
+            height: 300px;
+            max-width: 100%;
+            border: none;
+            border-radius: 12px;
+            background-color: black;
+            transition: transform 0.3s;
+        }
+        video:hover {
+            transform: scale(1.05);
+        }
+        .pop-up {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 180px;
+            height: 120px;
+            border-radius: 8px;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            cursor: move;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 12px;
+            padding: 10px;
+        }
+        .pop-up video {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        #startCall {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #startCall:hover {
+            background-color: #45a049;
+        }
+        #endCall {
+            background-color: #f44336;
+            color: white;
+        }
+        #endCall:hover {
+            background-color: #e53935;
+        }
+        #muteAudio {
+            background-color: #FF9800;
+            color: white;
+        }
+        #muteAudio.muted {
+            background-color: #FFB74D;
+        }
+        #turnOffVideo {
+            background-color: #3F51B5;
+            color: white;
+        }
+        #turnOffVideo.off {
+            background-color: #7986CB;
+        }
+        #sos {
+            background-color: #FF5722;
+            color: white;
+        }
+        #sos:hover {
+            background-color: #F4511E;
+        }
+        #captions {
+            background-color: #9C27B0;
+            color: white;
+        }
+        #captions:hover {
+            background-color: #7B1FA2;
+        }
+        #screenShare {
+            background-color: #2196F3;
+            color: white;
+        }
+        #screenShare:hover {
+            background-color: #1976D2;
+        }
+        .caption-container {
+            margin-top: 20px;
+            width: 500px;
+            max-width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            text-align: center;
+            font-size: 14px;
+            display: none; /* Initially hidden */
+        }
+        .screen-share-container {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 500px;
+            height: 300px;
+            border: 2px solid #2196F3;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+        .screen-share-container video {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Video Call Interface</h2>
+
+        <div class="video-container">
+            <video id="localVideo" autoplay muted></video>
+            <video id="remoteVideo" autoplay></video>
+            <div class="pop-up" id="popUp">
+                <video id="helpVideo" controls>
+                    <source src="{% static 'videos/help.mp4' %}" type="video/mp4"> <!-- Add your video path here -->
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+
+        <div class="caption-container" id="captionContainer">
+            <!-- Live captions will be displayed here -->
+            <p id="captionText">Live captions will appear here.</p>
+        </div>
+
+        <div class="controls">
+            <button id="startCall">Start Call</button>
+            <button id="endCall">End Call</button>
+            <button id="muteAudio">Mute Audio</button>
+            <button id="turnOffVideo">Turn Off Video</button>
+            <button id="sos">SOS for Deaf</button>
+            <button id="captions">Captions</button>
+            <button id="screenShare">Share Screen</button>
+        </div>
+    </div>
+
+    <div class="screen-share-container" id="screenShareContainer">
+        <video id="screenShareVideo" autoplay></video>
+    </div>
+
+    <script>
+        const localVideo = document.getElementById('localVideo');
+        const remoteVideo = document.getElementById('remoteVideo');
+        const startCallButton = document.getElementById('startCall');
+        const endCallButton = document.getElementById('endCall');
+        const muteAudioButton = document.getElementById('muteAudio');
+        const turnOffVideoButton = document.getElementById('turnOffVideo');
+        const sosButton = document.getElementById('sos');
+        const captionsButton = document.getElementById('captions');
+        const screenShareButton = document.getElementById('screenShare');
+        const captionContainer = document.getElementById('captionContainer');
+        const captionText = document.getElementById('captionText');
+        const popUp = document.getElementById('popUp');
+        const screenShareContainer = document.getElementById('screenShareContainer');
+        const screenShareVideo = document.getElementById('screenShareVideo');
+
+        let localStream;
+        let screenStream;
+        let peerConnection;
+        let captionsEnabled = false;
+        let screenSharing = false;
+
+        const configuration = {
+            iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' }
+            ]
+        };
+
+        // Start Call
+        startCallButton.addEventListener('click', async () => {
+            try {
+                // Get local stream
+                localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                localVideo.srcObject = localStream;
+
+                // Create PeerConnection
+                peerConnection = new RTCPeerConnection(configuration);
+
+                // Add local stream to PeerConnection
+                localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+
+                // Handle incoming remote stream
+                peerConnection.ontrack = (event) => {
+                    remoteVideo.srcObject = event.streams[0];
+                };
+
+                // Handle ICE candidates
+                peerConnection.onicecandidate = (event) => {
+                    if (event.candidate) {
+                        // Send the ICE candidate to the remote peer via your signaling server
+                        console.log('New ICE candidate:', event.candidate);
+                    }
+                };
+
+                // Create an offer
+                const offer = await peerConnection.createOffer();
+                await peerConnection.setLocalDescription(offer);
+
+                // Send the offer to the remote peer via your signaling server
+                console.log('Offer:', offer);
+            } catch (error) {
+                console.error('Error starting call:', error);
+            }
+        });
+
+        // End Call
+        endCallButton.addEventListener('click', () => {
+            if (peerConnection) {
+                peerConnection.close();
+                peerConnection = null;
+                remoteVideo.srcObject = null;
+                localStream.getTracks().forEach(track => track.stop());
+            }
+        });
+
+        // Mute/Unmute Audio
+        muteAudioButton.addEventListener('click', () => {
+            const audioTrack = localStream.getAudioTracks()[0];
+            if (audioTrack) {
+                audioTrack.enabled = !audioTrack.enabled;
+                muteAudioButton.classList.toggle('muted');
+                muteAudioButton.textContent = audioTrack.enabled ? 'Mute Audio' : 'Unmute Audio';
+            }
+        });
+
+        // Turn On/Off Video
+        turnOffVideoButton.addEventListener('click', () => {
+            const videoTrack = localStream.getVideoTracks()[0];
+            if (videoTrack) {
+                videoTrack.enabled = !videoTrack.enabled;
+                turnOffVideoButton.classList.toggle('off');
+                turnOffVideoButton.textContent = videoTrack.enabled ? 'Turn Off Video' : 'Turn On Video';
+            }
+        });
+
+        // SOS for Deaf Users
+        sosButton.addEventListener('click', () => {
+            alert('SOS signal sent for deaf users.');
+        });
+
+        // Toggle Captions
+        captionsButton.addEventListener('click', () => {
+            captionsEnabled = !captionsEnabled;
+            captionContainer.style.display = captionsEnabled ? 'block' : 'none';
+            captionsButton.textContent = captionsEnabled ? 'Hide Captions' : 'Captions';
+        });
+
+        // Share Screen
+        screenShareButton.addEventListener('click', async () => {
+            if (!screenSharing) {
+                try {
+                    screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                    const screenTrack = screenStream.getVideoTracks()[0];
+                    peerConnection.addTrack(screenTrack, screenStream);
+                    screenShareVideo.srcObject = screenStream;
+                    screenShareContainer.style.display = 'block';
+                    screenSharing = true;
+                    screenShareButton.textContent = 'Stop Screen Share';
+                } catch (error) {
+                    console.error('Error sharing screen:', error);
+                }
+            } else {
+                screenStream.getTracks().forEach(track => track.stop());
+                screenShareContainer.style.display = 'none';
+                screenSharing = false;
+                screenShareButton.textContent = 'Share Screen';
+            }
+        });
+
+        // Make Pop-Up Video Draggable
+        let isDragging = false;
+        let startX, startY, initialX, initialY;
+
+        popUp.addEventListener('mousedown', (event) => {
+            isDragging = true;
+            startX = event.clientX;
+            startY = event.clientY;
+            initialX = popUp.offsetLeft;
+            initialY = popUp.offsetTop;
+        });
+
+        document.addEventListener('mousemove', (event) => {
+            if (isDragging) {
+                const deltaX = event.clientX - startX;
+                const deltaY = event.clientY - startY;
+                popUp.style.left = `${initialX + deltaX}px`;
+                popUp.style.top = `${initialY + deltaY}px`;
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        popUp.ondragstart = function() {
+            return false;
+        };
+    </script>
+
+</body>
+</html>
