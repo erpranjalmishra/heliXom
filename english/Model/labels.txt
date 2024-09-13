@@ -1,0 +1,5 @@
+0 Hungry
+1 Love
+2 Namaste
+3 No
+4 Yes

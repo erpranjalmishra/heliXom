@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Namaste</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <meta name="theme-color" content="#664bee" />
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+    }
+
+    .bgimg {
+      background-image: url('/2.jpg');
+      height: 100%;
+      background-position: center;
+      background-size: cover;
+      position: relative;
+      color: white;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 25px;
+    }
+
+    .topleft {
+      position: absolute;
+      top: 0;
+      left: 16px;
+    }
+
+    .bottomleft {
+      position: absolute;
+      bottom: 0;
+      left: 16px;
+    }
+
+    .middle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    hr {
+      margin: auto;
+      width: 40%;
+    }
+
+    .blink {
+      animation: blinker 1.5s linear infinite;
+      color: red;
+      font-family: sans-serif;
+    }
+
+    @keyframes blinker {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .arrow {
+      border: solid black;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+    }
+
+    .up {
+      transform: rotate(-135deg);
+      -webkit-transform: rotate(-135deg);
+    }
+
+    /* Rounded black button CSS */
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      outline: none;
+      color: white;
+      background-color: black;
+      border: none;
+      border-radius: 25px;
+      box-shadow: 0 4px #999;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #555;
+    }
+
+    .button:active {
+      background-color: #555;
+      box-shadow: 0 2px #666;
+      transform: translateY(2px);
+    }
+
+    /* AWS logo styling */
+    .aws-logo {
+      display: block;
+      margin: 0 auto;
+      max-width: 300px;
+    }
+    
+    .message {
+      color: black;
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="bgimg">
+  <div class="topleft">
+    <img src="1.png" alt="AWS Logo" class="aws-logo" style="width:150px;height:auto;">
+  </div>
+
+  <div class="middle">
+     
+    <!-- Rounded button to redirect -->
+    <a href="https://www.google.com/search?q=risg+commudle&client=opera&hs=iry&sca_esv=b9a850ca6c7d4e0c&sca_upv=1&ei=wa_eZpzGJeT31e8Plsbi-Q0&ved=0ahUKEwjcqtDqtrWIAxXke_UHHRajON8Q4dUDCA8&uact=5&oq=galgotias+risg.in&gs_lp=Egxnd3Mtd2l6LXNlcnAiEWdhbGdvdGlhcyByaXNnLmluMggQABiABBiiBDIIEAAYgAQYogQyCBAAGIAEGKIEMggQABiABBiiBDIIEAAYgAQYogRIjEZQjAZYrTlwBXgAkAEAmAGBAqAB_w-qAQYwLjEzLjG4AQPIAQD4AQGYAhKgAp8PwgIOEAAYgAQYsAMYhgMYigXCAgsQABiABBiwAxiiBMICBBAAGB7CAgYQABgIGB7CAggQIRigARjDBMICCBAAGKIEGIkFmAMAiAYBkAYHkgcGNS4xMi4xoAfzIA&sclient=gws-wiz-serp" class="button">
+      <h2 style="color:red;">  AWS Server Overload‼️ </h2>
+      We are currently experiencing high traffic and cannot serve requests at this moment.
+        Please try again later.⚠️
+    </a>
+  </div>
+
+  <div class="bottomleft">
+    <h3 style="color:rgb(0, 0, 0);">Team V</h3>
+  </div>
+</div>
+
+</body>
+</html>

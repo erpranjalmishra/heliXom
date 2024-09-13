@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Server Overload</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <meta name="theme-color" content="#FF9900" />
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+    }
+
+    .bgimg {
+      background-image: url('https://d1.awsstatic.com/logos/aws-logo-lockups/powered-by-aws/powered-by-aws-white.547d1f85b47b0652d044ca36e1a582f5c2c5aa47.png');
+      height: 100%;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      position: relative;
+      color: white;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 25px;
+    }
+
+    .middle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    hr {
+      margin: auto;
+      width: 40%;
+    }
+
+    /* Message styling */
+    .message {
+      color: red;
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px;
+    }
+
+    /* AWS Logo */
+    .aws-logo {
+      display: block;
+      margin: 0 auto;
+      max-width: 300px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="bgimg">
+  <div class="middle">
+    <img src="https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png" alt="AWS Logo" class="aws-logo">
+    <h1 class="message">AWS Server Overload</h1>
+    <p>We are currently experiencing high traffic and cannot serve requests at this moment. Please try again later.</p>
+    <hr>
+    <p>Thank you for your patience.</p>
+  </div>
+</div>
+
+</body>
+</html>
